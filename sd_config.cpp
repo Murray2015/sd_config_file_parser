@@ -31,9 +31,9 @@ int USE_SERDATA;
 
 void setup()
 {
-    cout << "In setup";
+    cout << "In setup \n";
 
-    if (cfg.begin("config.cfg", 20))
+    if (cfg.begin("./config.cfg", 20))
     {
         while (cfg.readNextSetting())
         {
@@ -104,8 +104,7 @@ void setup()
             }
             else
             {
-                cout << "The name of this setting is:";
-                cout << cfg.getName();
+                cout << "The name of this setting is:" << cfg.getName() << "\n";
             }
         }
         cfg.end();
@@ -139,7 +138,7 @@ void loop()
 
 int main(void)
 {
-    cout << "Running setup";
+    cout << "Running setup \n";
     setup();
 }
 
