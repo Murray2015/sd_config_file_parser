@@ -30,7 +30,6 @@ using namespace std;
  */
 bool SDConfigFile::begin(const char *configFileName, uint8_t maxLineLength)
 {
-    cout << "In begin \n";
     _lineLength = 0;
     _lineSize = 0;
     _valueIdx = -1;
@@ -44,7 +43,7 @@ bool SDConfigFile::begin(const char *configFileName, uint8_t maxLineLength)
     if (_line == 0)
     {
 #ifdef SDCONFIGFILE_DEBUG
-        cout << "out of memory";
+        cout << " 48 out of memory";
 #endif
         _atEnd = true;
         return false;
@@ -57,13 +56,11 @@ bool SDConfigFile::begin(const char *configFileName, uint8_t maxLineLength)
 
     // _file = SD.open(configFileName, FILE_READ);
     // _file.open(configFileName);
-    cout << "Config filename = " << configFileName << "\n";
     _file.open(configFileName);
     if (!_file.is_open())
     {
 #ifdef SDCONFIGFILE_DEBUG
-        cout << "Could not open SD file: ";
-        cout << configFileName;
+        cout << "66 Could not open SD file: ";
 #endif
         _atEnd = true;
         return false;
@@ -71,9 +68,6 @@ bool SDConfigFile::begin(const char *configFileName, uint8_t maxLineLength)
 
     // Initialize our reader
     _atEnd = false;
-
-    cout << "Exiting begin \n";
-
     return true;
 }
 
@@ -82,6 +76,7 @@ bool SDConfigFile::begin(const char *configFileName, uint8_t maxLineLength)
  */
 void SDConfigFile::end()
 {
+    cout << "In End\n";
     if (_file)
     {
         _file.close();
@@ -103,11 +98,11 @@ void SDConfigFile::end()
 bool SDConfigFile::readNextSetting()
 {
     char bint = 0;
-    cout << "In readNextSetting \n";
+    // cout << "106 In readNextSetting \n";
 
     if (_atEnd)
     {
-        cout << "In _atEnd or error\n";
+        cout << "110 In _atEnd or error\n";
         return false; // already at end of file (or error).
     }
 
@@ -122,18 +117,18 @@ bool SDConfigFile::readNextSetting()
    */
     while (true)
     {
-        // bint = _file.read();
+        bint = _file.get();
         // _file >> noskipws >> bint;
         // _file.get(&bint, 1);
         if (!_file.is_open())
         {
-            cout << "file not open";
+            cout << "130 file not open";
         }
 
-        cout << "132 bint = " << bint << "\n";
+        // cout << "132 bint should be 0. bint = " << +bint << " | " << bint << "\n";
         if (bint < 0)
         {
-            cout << "In _atEnd or error\n";
+            cout << "136 In _atEnd or error\n";
             _atEnd = true;
             return false;
         }
@@ -143,7 +138,7 @@ bool SDConfigFile::readNextSetting()
             // Comment line.  Read until end of line or end of file.
             while (true)
             {
-                cout << "In comment line\n";
+                // cout << "In comment line\n";
                 // bint = _file.read();
                 _file >> noskipws >> bint;
                 if (bint < 0)
@@ -162,7 +157,7 @@ bool SDConfigFile::readNextSetting()
         // Ignore line ends and blank text
         if ((char)bint == '\r' || (char)bint == '\n' || (char)bint == ' ' || (char)bint == '\t')
         {
-            cout << "In continue\n";
+            cout << "165 In continue\n";
             continue;
         }
 
@@ -173,15 +168,13 @@ bool SDConfigFile::readNextSetting()
 
     while (bint >= 0 && (char)bint != '\r' && (char)bint != '\n')
     {
-        cout << "in while for copy \n ";
-        cout << "177 bint = " << bint << "\n";
+        // cout << "176 in while for copy \n";
+        // cout << "177 bint = " << +bint << "\n";
         if (_lineLength >= _lineSize - 1)
         { // -1 for a terminating null.
             _line[_lineLength] = '\0';
 #ifdef SDCONFIGFILE_DEBUG
-            cout << "Line too long: ";
-            cout << _line;
-            cout << bint;
+            cout << "182 Line too long: "  << _line << +bint << "\n";
 #endif
             _atEnd = true;
             return false;
@@ -190,17 +183,27 @@ bool SDConfigFile::readNextSetting()
         if ((char)bint == '=')
         {
             // End of Name; the next character starts the value.
+            // cout << "=== 191 In =, adding null terminator\n";
             _line[_lineLength++] = '\0';
             _valueIdx = _lineLength;
-            cout << "In =\n";
+            // cout << "189 _valueIdx = " << (int)_valueIdx <<  " | " << (int)_lineLength <<"\n";
         }
         else
         {
-            cout << "199 bint = " << bint << "\n";
-            _line[_lineLength++] = bint;
-            cout << "_line = " << _line << "_lineLength = " << _lineLength << "\n";
+            // cout << "197 bint = " << +bint << "\n";
+            // char * temp = (char*)&bint ;
+            // cout << "200 temp = " << (char*)&bint  << "\n"; 
+            // cout << "200 (char)bint = " << (char)bint  << "\n"; 
+            // cout << "200 temp = " << bint  << "\n"; 
+
+            // _line[_lineLength++] = +bint;
+            // _line[_lineLength++] = (char)bint;
+            _line[_lineLength] = (char)bint;
+            // cout << "206 _line is: " << _line[_lineLength] << "\n";
+            _lineLength++;
+            // cout << "208 _line = " << *_line << ", " << _line << ", " << &_line << " _lineLength = " << +_lineLength << "\n";
             // cout << "In else\n";
-            // cout << "Line = " << _line << "\n";
+            // cout < < "Line = " << _line << "\n";
             // cout << "bint = " << bint << "\n";
             // cout << "char bint = " << (char)bint << "\n";
         }
@@ -213,7 +216,7 @@ bool SDConfigFile::readNextSetting()
 
     if (bint < 0)
     {
-        cout << "In bint < 0 end of file thing\n";
+        // cout << "214 In bint < 0 end of file thing\n";
         _atEnd = true;
         // Don't exit. This is a normal situation:
         // the last line doesn't end in newline.
@@ -229,8 +232,7 @@ bool SDConfigFile::readNextSetting()
     if (_valueIdx < 0)
     {
 #ifdef SDCONFIGFILE_DEBUG
-        cout << "Missing '=' in line: ";
-        cout << _line;
+        cout << "230 Missing '=' in line: " << _line << "\n";
 #endif
         _atEnd = true;
         return false;
@@ -238,8 +240,7 @@ bool SDConfigFile::readNextSetting()
     if (_valueIdx == 1)
     {
 #ifdef SDCONFIGFILE_DEBUG
-        cout << "Missing Name in line: =";
-        cout << _line[_valueIdx];
+        cout << "238 Missing Name in line: ="  << _line[_valueIdx] << "\n";
 #endif
         _atEnd = true;
         return false;
@@ -255,6 +256,12 @@ bool SDConfigFile::readNextSetting()
  */
 bool SDConfigFile::nameIs(const char *name)
 {
+    // cout << "In nameIs. *name = " << name << ". _line = " << _line << ". *_line = " << *_line << ". &_line = " << &_line << ". strcmp(name, _line) = " << strcmp(name, _line) << "\n";
+    // cout << "Printing all of line.\n"; 
+    // for (int i =0; i < _lineSize; i++)
+    // {
+    //     cout << "i = " << i << ". _line[i] = " << _line[i] << "\n";
+    // }
     if (strcmp(name, _line) == 0)
     {
         return true;
@@ -269,7 +276,7 @@ bool SDConfigFile::nameIs(const char *name)
  */
 const char *SDConfigFile::getName()
 {
-    cout << " IN get name " << _lineLength << " | " << _valueIdx << " | " << &_line[0] << "\n";
+    // cout << "268 IN get name " << +_lineLength << " | " << +_valueIdx << " | " << _line[0] <<  " | " << _line <<  " | " << &_line << "\n";
     if (_lineLength <= 0 || _valueIdx <= 1)
     {
         return 0;
@@ -327,8 +334,10 @@ char *SDConfigFile::copyValue()
 int SDConfigFile::getIntValue()
 {
     const char *str = getValue();
+    cout << "value = " << str << ".\n"; 
     if (!str)
     {
+        cout << "in !str\n";
         return 0;
     }
     return atoi(str);
