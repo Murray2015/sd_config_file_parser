@@ -334,7 +334,7 @@ char *SDConfigFile::copyValue()
 int SDConfigFile::getIntValue()
 {
     const char *str = getValue();
-    cout << "value = " << str << ".\n"; 
+    cout << "value = " << str << " | " << atoi(str) << "\n"; 
     if (!str)
     {
         cout << "in !str\n";

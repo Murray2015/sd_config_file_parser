@@ -41,77 +41,77 @@ void setup()
             if (cfg.nameIs("INFO"))
             {
                 INFO = cfg.getIntValue();
-                cout << "value INFO USE_SERDATA is " << USE_SERDATA << "\n"; 
+                cout << "value INFO is " << INFO << "\n"; 
             }
             else if (cfg.nameIs("USB_SERIAL"))
             {
                 USB_SERIAL = cfg.getIntValue();
-                cout << "value of USB_SERIAL is " << USE_SERDATA << "\n"; 
+                cout << "value of USB_SERIAL is " << USB_SERIAL << "\n"; 
             }
             else if (cfg.nameIs("SD_INCLUDE"))
             {
                 SD_INCLUDE = cfg.getIntValue();
-                cout << "value of SD_INCLUDE is " << USE_SERDATA << "\n"; 
+                cout << "value of SD_INCLUDE is " << SD_INCLUDE << "\n"; 
             }
             else if (cfg.nameIs("PIX_INCLUDE"))
             {
                 PIX_INCLUDE = cfg.getIntValue();
-                cout << "value of PIX_INCLUDE is " << USE_SERDATA << "\n"; 
+                cout << "value of PIX_INCLUDE is " << PIX_INCLUDE << "\n"; 
             }
             else if (cfg.nameIs("SHT_INCLUDE"))
             {
                 SHT_INCLUDE = cfg.getIntValue();
-                cout << "value of SHT_INCLUDE is " << USE_SERDATA << "\n"; 
+                cout << "value of SHT_INCLUDE is " << SHT_INCLUDE << "\n"; 
             }
             else if (cfg.nameIs("FTBOARD_INCLUDE"))
             {
                 FTBOARD_INCLUDE = cfg.getIntValue();
-                cout << "value of USE_SERDATA FTBOARD_INCLUDE" << USE_SERDATA << "\n"; 
+                cout << "value of USE_SERDATA FTBOARD_INCLUDE" << FTBOARD_INCLUDE << "\n"; 
             }
             else if (cfg.nameIs("VALVES_INCLUDE"))
             {
                 VALVES_INCLUDE = cfg.getIntValue();
-                cout << "value of USE_SERDATA VALVES_INCLUDE" << USE_SERDATA << "\n"; 
+                cout << "value of USE_SERDATA VALVES_INCLUDE" << VALVES_INCLUDE << "\n"; 
             }
             else if (cfg.nameIs("PUMP_INCLUDE"))
             {
                 PUMP_INCLUDE = cfg.getIntValue();
-                cout << "value of PUMP_INCLUDE is " << USE_SERDATA << "\n"; 
+                cout << "value of PUMP_INCLUDE is " << PUMP_INCLUDE << "\n"; 
             }
             else if (cfg.nameIs("WDT_INCLUDE"))
             {
                 WDT_INCLUDE = cfg.getIntValue();
-                cout << "value of WDT_INCLUDE is " << USE_SERDATA << "\n"; 
+                cout << "value of WDT_INCLUDE is " << WDT_INCLUDE << "\n"; 
             }
             else if (cfg.nameIs("DIGI_INCLUDE"))
             {
                 DIGI_INCLUDE = cfg.getIntValue();
-                cout << "value of DIGI_INCLUDE is " << USE_SERDATA << "\n"; 
+                cout << "value of DIGI_INCLUDE is " << DIGI_INCLUDE << "\n"; 
             }
             else if (cfg.nameIs("GSS_INCLUDE"))
             {
                 GSS_INCLUDE = cfg.getIntValue();
-                cout << "value of GSS_INCLUDE is " << USE_SERDATA << "\n"; 
+                cout << "value of GSS_INCLUDE is " << GSS_INCLUDE << "\n"; 
             }
             else if (cfg.nameIs("PART_INCLUDE"))
             {
                 PART_INCLUDE = cfg.getIntValue();
-                cout << "value of PART_INCLUDE is " << USE_SERDATA << "\n"; 
+                cout << "value of PART_INCLUDE is " << PART_INCLUDE << "\n"; 
             }
             else if (cfg.nameIs("DATA_CACHING"))
             {
                 DATA_CACHING = cfg.getIntValue();
-                cout << "value of DATA_CACHING is " << USE_SERDATA << "\n"; 
+                cout << "value of DATA_CACHING is " << DATA_CACHING << "\n"; 
             }
             else if (cfg.nameIs("DO_TIMING"))
             {
                 DO_TIMING = cfg.getIntValue();
-                cout << "value of DO_TIMING is " << USE_SERDATA << "\n"; 
+                cout << "value of DO_TIMING is " << DO_TIMING << "\n"; 
             }
             else if (cfg.nameIs("USE_SERMON"))
             {
                 USE_SERMON = cfg.getIntValue();
-                cout << "value of USE_SERMON is " << USE_SERDATA << "\n"; 
+                cout << "value of USE_SERMON is " << USE_SERMON << "\n"; 
             }
             else if (cfg.nameIs("USE_SERDATA"))
             {
@@ -121,7 +121,7 @@ void setup()
             else if (cfg.nameIs("asdf"))
             {
                 asdf = cfg.getValue();
-                cout << "value of asdf is " << USE_SERDATA << "\n"; 
+                cout << "value of asdf is " << asdf << "\n"; 
             }
             else
             {
