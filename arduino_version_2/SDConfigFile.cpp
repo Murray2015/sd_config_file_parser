@@ -180,7 +180,7 @@ bool SDConfigFile::readNextSetting()
         { // -1 for a terminating null.
             _line[_lineLength] = '\0';
 #ifdef SDCONFIGFILE_DEBUG
-            Serial.println("182 Line too long: " << _line << +bint << "\n");
+            Serial.println("182 Line too long");
 #endif
             _atEnd = true;
             return false;
@@ -218,7 +218,7 @@ bool SDConfigFile::readNextSetting()
     if (_valueIdx < 0)
     {
 #ifdef SDCONFIGFILE_DEBUG
-        Serial.println("230 Missing '=' in line: " << _line << "\n");
+        Serial.println("230 Missing '=' in line");
 #endif
         _atEnd = true;
         return false;
@@ -226,7 +226,7 @@ bool SDConfigFile::readNextSetting()
     if (_valueIdx == 1)
     {
 #ifdef SDCONFIGFILE_DEBUG
-        Serial.println("238 Missing Name in line: =" << _line[_valueIdx] << "\n");
+        Serial.println("238 Missing Name in line");
 #endif
         _atEnd = true;
         return false;
